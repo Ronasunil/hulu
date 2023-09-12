@@ -7,6 +7,7 @@
 .section-1{
     height: 670px;
     background-image: url("../images/original.jpeg");
+
     background-repeat: no-repeat;
     background-position: center;
     background-size: 100% 100%; 
@@ -14,6 +15,9 @@
 
 .header-icon{
     fill: #1ce783;
+}
+.lazy{
+    filter: blur(5px);
 }
 
 .header-nav{

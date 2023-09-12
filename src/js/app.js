@@ -5,8 +5,10 @@ const borders = document.querySelectorAll(".btn-border");
 const operationContiner = document.querySelectorAll(".operation-tabs");
 const tabImg = document.querySelector(".main-img");
 const tabContents = document.querySelectorAll(".tab-component");
+const section2 = document.querySelector(".section-2");
+const seriesImgs = document.querySelectorAll(".lazy");
 
-tabs.addEventListener("click", function (e) {
+const changeTab = function (e) {
   const btn = e.target.closest(".tab-btn");
   if (!btn) return;
 
@@ -25,4 +27,35 @@ tabs.addEventListener("click", function (e) {
   document
     .querySelector(`.tab-component-${btn.dataset.tab}`)
     .classList.add("component-active");
+};
+
+tabs.addEventListener("click", changeTab);
+
+// const opt = {
+//   root: null,
+//   threshold: 0.4,
+// };
+
+const imgOnLoad = function (img) {
+  console.log(img);
+  img.addEventListener("load", function () {
+    this.classList.remove("lazy");
+  });
+};
+
+const lazyLoad = function (entries, obs) {
+  const [entry] = entries;
+  if (!entry.isIntersecting) return;
+  seriesImgs.forEach((img) => {
+    const currentSrc = img.dataset.imgsrc;
+    img.src = currentSrc;
+    imgOnLoad(img);
+  });
+};
+
+const observer = new IntersectionObserver(lazyLoad, {
+  root: null,
+  threshold: 0.1,
 });
+
+observer.observe(section2);
